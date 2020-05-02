@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Pickapp&amp;go</string>
+    <string name="app_name">Pickapp &amp; go</string>
+    <string name="app_name_title">PickApp &amp; Go</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bm_home">Домой</string>
+    <string name="bm_catalog">Каталог</string>
+    <string name="bm_favorites">Избранное</string>
+    <string name="bm_basket">Корзина</string>
+    <string name="bm_profile">Профиль</string>
+    <string name="menu_title_search">Поиск</string>
 </resources>
