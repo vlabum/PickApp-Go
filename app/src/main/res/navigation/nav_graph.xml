@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_catalog"
-        android:name="ru.vlabum.pickappngo.ui.catalog.CatalogFragment"
+        android:name="ru.vlabum.pickappngo.ui.catalog.CategoryFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog" />
 

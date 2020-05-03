@@ -47,6 +47,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         setContentView(layout)
         setSupportActionBar(toolbar)
         viewModel.observeState(this) { subscribeOnState(it) }
+        viewModel.observeNavigation(this) { subscribeOnNavigation(it) }
         navController = findNavController(R.id.nav_host_fragment)
     }
 
@@ -63,6 +64,10 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
                     command.options,
                     command.extras
                 )
+            }
+
+            is NavigationCommand.CatalogPage -> {
+                navController.navigate(R.id.nav_catalog)
             }
 
 //            is NavigationCommand.FinishLogin -> {
