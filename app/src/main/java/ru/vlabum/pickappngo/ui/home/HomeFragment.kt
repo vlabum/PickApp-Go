@@ -2,6 +2,8 @@ package ru.vlabum.pickappngo.ui.home
 
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.vlabum.pickappngo.R
 import ru.vlabum.pickappngo.ui.base.BaseFragment
 import ru.vlabum.pickappngo.ui.base.ToolbarBuilder

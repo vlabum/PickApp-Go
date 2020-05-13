@@ -12,6 +12,7 @@ abstract class BaseFragment<T : BaseViewModel<out IViewModelState>> : Fragment()
     val mainActivity: MainActivity
         get() = activity as MainActivity
 
+    open val binding: Binding? = null
     protected abstract val viewModel: T
     protected abstract val layout: Int
 
@@ -45,6 +46,18 @@ abstract class BaseFragment<T : BaseViewModel<out IViewModelState>> : Fragment()
             .prepare(prepareBottombar)
             .build(mainActivity)
 
+        //restore state
+        viewModel.restoreState()
+        binding?.restoreUi(savedInstanceState)
+
+        // owner it is view
+        viewModel.observeState(viewLifecycleOwner) { binding?.bind(it) }
+
+        //bind default values if viewmodel not loaded data
+        if (binding?.isInflated == false) binding?.onFinishInflate()
+
+        //viewModel.observeNotifications(viewLifecycleOwner) { mainActivity.renderNotification(it) }
+        viewModel.observeNavigation(viewLifecycleOwner) { mainActivity.viewModel.navigate(it) }
         setupViews()
     }
 }
