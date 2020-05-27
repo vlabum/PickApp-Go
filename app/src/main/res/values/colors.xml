@@ -8,6 +8,16 @@
     <color name="colorPrimaryDark">#689F38</color>
     <color name="colorAccent">#FF9800</color>
 
+    <color name="background">#FAFAFA</color>
+    <color name="background_card">#FFFFFF</color>
+    <color name="accent_orange">#FF8E09</color>
+    <color name="accent_orange2">#FF5722</color>
+    <color name="text">#2B2A2E</color>
+    <color name="text2">#484848</color>
+    <color name="magenta">#FF3C6B</color>
+
+
+
     <color name="color_gray_light">#EEEEEE</color>
 
     <color name="color_article_bar">#FFFFFF</color>
@@ -17,5 +27,6 @@
     <color name="like_red">#FF3C6B</color>
     <color name="border_gray">#EEEEEE</color>
     <color name="background_lite">#E5E5E5</color>
+
 
 </resources>
