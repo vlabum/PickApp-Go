@@ -1,8 +1,17 @@
 package ru.vlabum.pickappngo.data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import ru.vlabum.pickappngo.data.EntityGenerator.generateCustomerChoiceItems
+import ru.vlabum.pickappngo.data.models.ProductItemData
+import java.util.*
 
 object LocalDataHolder {
+
+    val localArticleItems: MutableList<ProductItemData> = mutableListOf()
 
     fun getSplashData(): MutableLiveData<SplashItemData> {
         return MutableLiveData(SplashItemData())
@@ -36,3 +45,9 @@ data class CategoryItemData(
     val caption: String = "new catalog",
     val picture: String? = null
 )
+
+object NetworkDataHolder {
+
+    val networkCustomerChoice: List<ProductItemData> = generateCustomerChoiceItems(30)
+
+}

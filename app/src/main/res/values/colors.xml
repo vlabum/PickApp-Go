@@ -13,5 +13,9 @@
     <color name="color_article_bar">#FFFFFF</color>
 
     <color name="color_on_article_bar">#1C0E42</color>
-    
+
+    <color name="like_red">#FF3C6B</color>
+    <color name="border_gray">#EEEEEE</color>
+    <color name="background_lite">#E5E5E5</color>
+
 </resources>

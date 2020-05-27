@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_bm_home"
+        android:icon="@drawable/ic_bm_home_24px"
         android:title="@string/bm_home"/>
     <item
         android:id="@+id/nav_catalog"
-        android:icon="@drawable/ic_bm_catalog"
+        android:icon="@drawable/ic_bm_catalogue_24px"
         android:title="@string/bm_catalog"/>
     <item
         android:id="@+id/nav_favorites"
-        android:icon="@drawable/ic_bm_favorites"
+        android:icon="@drawable/ic_bm_favourite_24px"
         android:title="@string/bm_favorites"/>
     <item
         android:id="@+id/nav_basket"
-        android:icon="@drawable/ic_bm_basket"
+        android:icon="@drawable/ic_bm_basket_24px"
         android:title="@string/bm_basket"/>
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_bm_profile"
+        android:icon="@drawable/ic_bm_user_24_px"
         android:title="@string/bm_profile"/>
 
 </menu>
