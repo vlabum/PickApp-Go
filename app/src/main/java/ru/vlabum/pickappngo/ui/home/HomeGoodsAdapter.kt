@@ -11,25 +11,25 @@ import ru.vlabum.pickappngo.R
 import ru.vlabum.pickappngo.data.models.ProductItemData
 import ru.vlabum.pickappngo.ui.custom.view.ProductItemView
 
-class HCustomerChoiceAdapter(
+class HomePitmAdapter(
+    private val listener: (ProductItemData) -> Unit,
     private val listenerBasket: (ProductItemData) -> Unit,
-    private val listenerLike: (String, Boolean) -> Unit
+    private val listenerLike: (ProductItemData) -> Unit
 ) :
-    PagedListAdapter<ProductItemData, ArticleVH>(ArticleDiffCallback()) {
+    PagedListAdapter<ProductItemData, GoodsVH>(GoodsDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodsVH {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_product, parent, false)
-//        val view = ProductItemView(parent.context)
-        return ArticleVH(view)
+        return GoodsVH(view)
     }
 
-    override fun onBindViewHolder(holder: ArticleVH, position: Int) {
-        holder.bind(getItem(position), listenerBasket, listenerLike)
+    override fun onBindViewHolder(holder: GoodsVH, position: Int) {
+        holder.bind(getItem(position), listener, listenerBasket, listenerLike)
     }
 }
 
-class ArticleDiffCallback : DiffUtil.ItemCallback<ProductItemData>() {
+class GoodsDiffCallback : DiffUtil.ItemCallback<ProductItemData>() {
     override fun areItemsTheSame(oldItem: ProductItemData, newItem: ProductItemData): Boolean {
         return oldItem.id == newItem.id
     }
@@ -39,24 +39,27 @@ class ArticleDiffCallback : DiffUtil.ItemCallback<ProductItemData>() {
     }
 }
 
-class ArticleVH(
+class GoodsVH(
     override val containerView: View
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(
         item: ProductItemData?,
         listener: (ProductItemData) -> Unit,
-        listenerBookmark: ((String, Boolean) -> Unit)
+        listenerBasket: (ProductItemData) -> Unit,
+        listenerLike: ((ProductItemData) -> Unit)
     ) {
 
-        val view = containerView.findViewById<ProductItemView>(R.id.pitm1)
+        val view = containerView.findViewById<ProductItemView>(R.id.goods_item)
 
         //if use placeholder item may be null
         item ?: return
         //(containerView as ProductItemView)
-        view.bind(item) { p1, p2 ->
-            listenerBookmark(p1, p2)
-        }
+        view.bind(
+            item,
+            { p1 -> listenerLike(p1) },
+            { p1 -> listenerBasket(p1) }
+        )
         itemView.setOnClickListener { listener(item) }
 
     }

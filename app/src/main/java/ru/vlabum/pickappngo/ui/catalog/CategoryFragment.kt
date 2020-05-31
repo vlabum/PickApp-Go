@@ -10,7 +10,6 @@ import ru.vlabum.pickappngo.data.CategoryItemData
 import ru.vlabum.pickappngo.extensions.dpToIntPx
 import ru.vlabum.pickappngo.ui.base.BaseFragment
 import ru.vlabum.pickappngo.ui.base.Binding
-import ru.vlabum.pickappngo.ui.base.BottombarBuilder
 import ru.vlabum.pickappngo.ui.base.ToolbarBuilder
 import ru.vlabum.pickappngo.ui.custom.CategoryMarginItemDecoration
 import ru.vlabum.pickappngo.ui.delegates.RenderProp
@@ -76,7 +75,7 @@ class CategoryFragment : BaseFragment<CatalogViewModel>() {
 
         override fun bind(data: IViewModelState) {
             data as CategoryState
-            articles = data.category
+            articles = data.categoryOld
         }
     }
 

@@ -2,30 +2,10 @@ package ru.vlabum.pickappngo.data
 
 import ru.vlabum.pickappngo.R
 import ru.vlabum.pickappngo.data.models.*
-import java.util.*
-import kotlin.random.Random.Default.nextBoolean
+import ru.vlabum.pickappngo.data.models.CategoryItemData
 
 object EntityGenerator {
 
-//    fun generateArticle(article: ArticleItemData): ArticleData = ArticleData(
-//        id = article.id,
-//        title = article.title,
-//        category = article.category,
-//        categoryIcon = article.categoryIcon,
-//        poster = article.poster,
-//        author = User(
-//            "${article.id.toInt() % 6}",
-//            article.author,
-//            article.authorAvatar,
-//            lastVisit = Date().add(-1 * (1..7).random(), TimeUnits.DAY),
-//            respect = (100..300).random(),
-//            rating = (100..200).random()
-//        ),
-//        commentCount = article.commentCount,
-//        likeCount = article.likeCount,
-//        readDuration = article.readDuration,
-//        date = article.date
-//    )
 
     fun generateCustomerChoiceItems(count: Int): List<ProductItemData> =
         Array(count) { productItems[it % 6] }
@@ -33,21 +13,46 @@ object EntityGenerator {
             .mapIndexed { index, article ->
                 article.copy(
                     id = "$index"
-                    //, price = (10..4000).random().toFloat()
                 )
             }
 
-
-//    fun createArticleItem(articleId: String): ArticleItemData {
-//        return productItems[articleId.toInt() % 6].copy(
-//            id = articleId,
-//            commentCount = (10..40).random(),
-//            readDuration = (2..10).random(),
-//            likeCount = (15..100).random()
-//        )
-//    }
-
+    fun getCategories(): List<CategoryItemData> = categoryItemData
 }
+
+private val categoryItemData = Array(size = 5) {
+    when(it) {
+        1 -> CategoryItemData(
+            id = 1,
+            idStr = "vegetable",
+            title = "Овощи, фрукты, ягоды, грибы",
+            imageUrl = R.drawable.cat_vegetable2
+        )
+        2 -> CategoryItemData(
+            id = 2,
+            idStr = "milk",
+            title = "Молоко, сыр и яйцо",
+            imageUrl = R.drawable.cat_milk
+        )
+        3 -> CategoryItemData(
+            id = 3,
+            idStr = "meat",
+            title = "Мясо, птица, колбасы",
+            imageUrl = R.drawable.cat_meat
+        )
+        4 -> CategoryItemData(
+            id = 4,
+            idStr = "grocery",
+            title = "Макароны, крупы, специи",
+            imageUrl = R.drawable.cat_grocery
+        )
+        else -> CategoryItemData(
+            id = 5,
+            idStr = "fish",
+            title = "Рыба и морепродукты",
+            imageUrl = R.drawable.cat_fish
+        )
+    }
+}.toList()
 
 private val productItems = Array(6) {
     when (it) {
@@ -55,54 +60,60 @@ private val productItems = Array(6) {
             id = "0",
             imageUrl = "https://skill-branch.ru/img/mail/bot/android-category.png",
             imageId = R.drawable.pitm_hotpng_5,
-            title = "Architecture Components pitfalls",
+            title = "Кошачий корм\nPurina «Proplan»",
             description = "LiveData and the Fragment lifecycle",
-            price = 1111f
+            dimension = "200 г",
+            price = 1111
         )
 
         2 -> ProductItemData(
             id = "0",
             imageId = R.drawable.pitm_hotpng_4,
             imageUrl = "https://skill-branch.ru/img/mail/bot/android-category.png",
-            title = "Using Safe args plugin — current state of affairs",
+            title = "Молоко\n" +
+                    "«Real goodness»",
             description = "Article describing usage of Safe args Gradle plugin with the Navigation Architecture Component and current support for argument types",
-            price = 2222f
+            dimension = "200 г",
+            price = 2222
         )
 
         3 -> ProductItemData(
             id = "0",
             imageUrl = "https://skill-branch.ru/img/mail/bot/android-category.png",
             imageId = R.drawable.pitm_image_4,
-            title = "Observe LiveData from ViewModel in Fragment",
+            title = "Observe LiveData",
             description = "Google introduced Android architecture components which are basically a collection of libraries that facilitate robust design, testable",
-            price = 3333f
+            dimension = "шт",
+            price = 3333
         )
 
         4 -> ProductItemData(
             id = "0",
             imageUrl = "https://skill-branch.ru/img/mail/bot/android-category.png",
             imageId = R.drawable.pitm_image_6,
-            title = "The New Android In-App Navigation",
+            title = "The New Android",
             description = "How to integrate Navigation Architecture Component in your app in different use cases",
-            price = 4444f
-
+            dimension = "200 г",
+            price = 4444
         )
 
         5 -> ProductItemData(
             id = "0",
             imageUrl = "https://skill-branch.ru/img/mail/bot/android-category.png",
-            title = "Optimizing Android ViewModel with Lifecycle 2.2.0",
+            title = "Optimizing Android ViewModel",
             imageId = R.drawable.pitm_image_7,
-            description = "Initialization, passing arguments, and saved state",
-            price = 5555.44f
+            description = "Initialization, passing arguments",
+            dimension = "бут",
+            price = 555544
         )
         else -> ProductItemData(
             id = "0",
             imageUrl = "https://skill-branch.ru/img/mail/bot/android-category.png",
             imageId = R.drawable.pitm_image_6,
-            title = "Drawing a rounded corner background on text",
+            title = "Drawing a rounded ",
             description = "Let’s say that we need to draw a **rounded** corner background on text, supporting the following cases",
-            price = 5555.55f
+            dimension = "200 г",
+            price = 555555
         )
     }
 }.toList()

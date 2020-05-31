@@ -1,23 +1,24 @@
 package ru.vlabum.pickappngo.data
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.vlabum.pickappngo.data.EntityGenerator.generateCustomerChoiceItems
+import ru.vlabum.pickappngo.data.EntityGenerator.getCategories
+import ru.vlabum.pickappngo.data.models.CategoryItemData
 import ru.vlabum.pickappngo.data.models.ProductItemData
-import java.util.*
 
 object LocalDataHolder {
 
-    val localArticleItems: MutableList<ProductItemData> = mutableListOf()
+    val locCustomerChoice: MutableList<ProductItemData> = mutableListOf()
+    val locNewsOfweek: MutableList<ProductItemData> = mutableListOf()
+    val locGoodsOfweek: MutableList<ProductItemData> = mutableListOf()
+
+    val locCategories: MutableList<CategoryItemData> = mutableListOf()
 
     fun getSplashData(): MutableLiveData<SplashItemData> {
         return MutableLiveData(SplashItemData())
     }
 
-    fun loadCategory(): MutableLiveData<List<CategoryItemData>> {
+    fun loadCategory(): MutableLiveData<List<ru.vlabum.pickappngo.data.CategoryItemData>> {
         return MutableLiveData(
             listOf(
                 CategoryItemData("1", "Category1", "category_milk.png"),
@@ -48,6 +49,10 @@ data class CategoryItemData(
 
 object NetworkDataHolder {
 
-    val networkCustomerChoice: List<ProductItemData> = generateCustomerChoiceItems(30)
+    val netCustomerChoice: List<ProductItemData> = generateCustomerChoiceItems(30)
+    val netNewsOfweek: List<ProductItemData> = generateCustomerChoiceItems(20)
+    val netGoodsOfweek: List<ProductItemData> = generateCustomerChoiceItems(30)
+
+    val netCategories: List<CategoryItemData> = getCategories()
 
 }

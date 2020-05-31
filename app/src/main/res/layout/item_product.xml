@@ -2,21 +2,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:elevation="9dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pitm1"
+        android:id="@+id/cv_goods"
         app:cardCornerRadius="18dp"
         app:cardElevation="8dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ru.vlabum.pickappngo.ui.custom.view.ProductItemView
-            android:id="@+id/pitm1"
-            android:layout_width="156dp"
+            android:id="@+id/goods_item"
+            android:layout_width="140dp"
             android:layout_height="204dp" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -10,4 +10,8 @@
     <string name="bm_basket">Корзина</string>
     <string name="bm_profile">Профиль</string>
     <string name="menu_title_search">Поиск</string>
+    <string name="customer_choice_text">Выбор покупателей</string>
+    <string name="news_of_the_week_text">Новинки недели</string>
+    <string name="goods_of_the_week_text">Товары недели</string>
+    <string name="category_text">Категории</string>
 </resources>

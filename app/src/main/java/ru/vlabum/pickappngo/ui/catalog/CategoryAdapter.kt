@@ -36,17 +36,17 @@ class CategoryVH(
     override val containerView: View
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    fun bind(item: CategoryItemData, listener: (CategoryItemData) -> Unit) {
+    fun bind(itemOld: CategoryItemData, listener: (CategoryItemData) -> Unit) {
         val cornerRadius = containerView.context.dpToIntPx(8)
 
         Glide.with(containerView.context)
             .load(R.drawable.category_milk)
             .transform(CenterCrop(), RoundedCorners(cornerRadius))
-            .into(iv_picture)
+            .into(iv_category_item)
 
-        tv_caption.text = item.caption
+        tv_category_title.text = itemOld.caption
 
-        itemView.setOnClickListener { listener(item) }
+        itemView.setOnClickListener { listener(itemOld) }
     }
 
 //    fun getImage(imageName: String?): Int {
@@ -56,11 +56,11 @@ class CategoryVH(
 }
 
 class CategoryDiffCallback : DiffUtil.ItemCallback<CategoryItemData>() {
-    override fun areItemsTheSame(oldItem: CategoryItemData, newItem: CategoryItemData): Boolean {
-        return oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItemOld: CategoryItemData, newItemOld: CategoryItemData): Boolean {
+        return oldItemOld.id == newItemOld.id
     }
 
-    override fun areContentsTheSame(oldItem: CategoryItemData, newItem: CategoryItemData): Boolean {
-        return oldItem == newItem
+    override fun areContentsTheSame(oldItemOld: CategoryItemData, newItemOld: CategoryItemData): Boolean {
+        return oldItemOld == newItemOld
     }
 }

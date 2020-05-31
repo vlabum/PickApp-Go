@@ -15,7 +15,7 @@ class CatalogViewModel(handle: SavedStateHandle) :
     init {
         subscribeOnDataSource(repository.loadCategory()) { data, state ->
             data ?: return@subscribeOnDataSource null
-            state.copy(category = data)
+            state.copy(categoryOld = data)
         }
     }
 
@@ -23,7 +23,7 @@ class CatalogViewModel(handle: SavedStateHandle) :
 
 data class CategoryState(
     val context: String = "0",
-    val category: List<CategoryItemData> = emptyList()
+    val categoryOld: List<CategoryItemData> = emptyList()
 ) : IViewModelState {
     override fun save(outState: SavedStateHandle) {
         super.save(outState)
