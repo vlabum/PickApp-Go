@@ -24,22 +24,22 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         this.setVisibility(false)
     }
 
-    val customerChoiceAdapter = HomePitmAdapter(
-        { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/  },
-        { item -> /*TODO add basket*/},
-        { item -> /*TODO insert into adore product*/}
+    val customerChoiceAdapter = HomeGoodsAdapter(
+        { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/ },
+        { item -> /*TODO add basket*/ },
+        { item -> /*TODO insert into adore product*/ }
     )
 
-    val newsOfTheWeekAdapter = HomePitmAdapter(
-        { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/  },
-        { item -> /*TODO add basket*/},
-        { item -> /*TODO insert into adore product*/}
+    val newsOfTheWeekAdapter = HomeGoodsAdapter(
+        { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/ },
+        { item -> /*TODO add basket*/ },
+        { item -> /*TODO insert into adore product*/ }
     )
 
-    val goodsOfTheWeekAdapter = HomePitmAdapter(
-        { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/  },
-        { item -> /*TODO add basket*/},
-        { item -> /*TODO insert into adore product*/}
+    val goodsOfTheWeekAdapter = HomeGoodsAdapter(
+        { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/ },
+        { item -> /*TODO add basket*/ },
+        { item -> /*TODO insert into adore product*/ }
     )
 
     val categoriesAdapter = HomeCategoryAdapter(

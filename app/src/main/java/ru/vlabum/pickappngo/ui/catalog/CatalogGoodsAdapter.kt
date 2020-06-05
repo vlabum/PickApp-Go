@@ -1,4 +1,4 @@
-package ru.vlabum.pickappngo.ui.home
+package ru.vlabum.pickappngo.ui.catalog
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import ru.vlabum.pickappngo.R
 import ru.vlabum.pickappngo.data.models.ProductItemData
 import ru.vlabum.pickappngo.ui.custom.view.ProductItemView
 
-class HomeGoodsAdapter(
+class CatalogGoodsAdapter(
     private val listener: (ProductItemData) -> Unit,
     private val listenerBasket: (ProductItemData) -> Unit,
     private val listenerLike: (ProductItemData) -> Unit
@@ -21,13 +21,21 @@ class HomeGoodsAdapter(
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodsVH {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_product_home, parent, false)
+        val view = when (viewType) {
+            1 -> LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_product_catalog_d, parent, false)
+            else -> LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_product_catalog, parent, false)
+        }
         return GoodsVH(view)
     }
 
     override fun onBindViewHolder(holder: GoodsVH, position: Int) {
         holder.bind(getItem(position), listener, listenerBasket, listenerLike)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) 1 else 2
     }
 }
 

@@ -22,7 +22,7 @@ class CategoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryVH {
         val containerView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_category, parent, false)
+            .inflate(R.layout.item_product_catalog, parent, false)
         return CategoryVH(containerView)
     }
 
@@ -37,11 +37,10 @@ class CategoryVH(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(itemOld: CategoryItemData, listener: (CategoryItemData) -> Unit) {
-        val cornerRadius = containerView.context.dpToIntPx(8)
 
         Glide.with(containerView.context)
             .load(R.drawable.category_milk)
-            .transform(CenterCrop(), RoundedCorners(cornerRadius))
+            .transform(CenterCrop())
             .into(iv_category_item)
 
         tv_category_title.text = itemOld.caption

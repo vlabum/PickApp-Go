@@ -125,6 +125,9 @@ class ProductItemView @JvmOverloads constructor(
 
         measureChild(iv_like, widthMeasureSpec, heightMeasureSpec)
 
+        val width = getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
+        val height = getDefaultSize(suggestedMinimumHeight, heightMeasureSpec)
+
         val iv_lp = iv_image.layoutParams
         iv_lp.width = imageWidth
         iv_lp.height = imageHeight
