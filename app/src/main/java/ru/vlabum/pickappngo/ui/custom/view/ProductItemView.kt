@@ -49,11 +49,11 @@ class ProductItemView @JvmOverloads constructor(
     val padding = context.dpToIntPx(8)
     val imageWidth = context.dpToIntPx(93)
     val imageHeight = context.dpToIntPx(57)
-    val imageTop = context.dpToIntPx(42)
+    var imageTop = context.dpToIntPx(42)
     val likeSize = context.dpToIntPx(48)
     val basketSize = context.dpToIntPx(48)
     val margin = context.dpToIntPx(12)
-    val marginTopName = context.dpToIntPx(110)
+    var marginTopName = context.dpToIntPx(110)
     val countRowForCaption = 2
 
     var typeFace: Typeface?
@@ -129,6 +129,8 @@ class ProductItemView @JvmOverloads constructor(
         val height = getDefaultSize(suggestedMinimumHeight, heightMeasureSpec)
 
         val iv_lp = iv_image.layoutParams
+        imageTop = (height.toFloat() * 0.49).toInt() - imageHeight
+        marginTopName = (height.toFloat() * 0.5392).toInt()
         iv_lp.width = imageWidth
         iv_lp.height = imageHeight
         iv_image.layoutParams = iv_lp
@@ -183,6 +185,10 @@ class ProductItemView @JvmOverloads constructor(
             measuredHeight
         )
 
+    }
+
+    fun setLike(isLike: Boolean) {
+        iv_like.isChecked = isLike
     }
 
     fun bind(item: ProductItemData,

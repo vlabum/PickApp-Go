@@ -21,6 +21,12 @@ object HomeRepository {
     fun goodsOfWeek(): GoodsDataFactory =
         GoodsDataFactory(ProductStrategy.Offers(::goodsOfWeekProvider))
 
+    fun allGoods(): GoodsDataFactory =
+        GoodsDataFactory(ProductStrategy.AllGoods(::allGoodsProvider))
+
+    fun likeGoods(): GoodsDataFactory =
+        GoodsDataFactory(ProductStrategy.LikeGoods(::likeGoodsProvider))
+
     fun categories(): CategoriesDataFactory =
         CategoriesDataFactory(ProductStrategy.Categories(::categoryProvider))
 
@@ -33,6 +39,17 @@ object HomeRepository {
 
     private fun goodsOfWeekProvider(start: Int, size: Int) =
         local.locGoodsOfweek.drop(start).take(size)
+
+    private fun allGoodsProvider(start: Int, size: Int) =
+        local.locAllGoods.drop(start).take(size)
+
+    private fun likeGoodsProvider(start: Int, size: Int) =
+        local.locAllGoods
+            .asSequence()
+            .filter { it.isLike }
+            .drop(start)
+            .take(size)
+            .toList()
 
     private fun categoryProvider(start: Int, size: Int) =
         local.locCategories.drop(start).take(size)
@@ -53,7 +70,6 @@ object HomeRepository {
     }
 
 
-
     //"НОВИНКИ НЕДЕЛИ" загрузка из сети
     fun loadNewsOfWeekFromNetwork(start: Int, size: Int): List<ProductItemData> =
         network.netNewsOfweek
@@ -66,7 +82,6 @@ object HomeRepository {
         local.locNewsOfweek.addAll(goods)
             .apply { Thread.sleep(100) }
     }
-
 
 
     //"ТОВАРЫ НЕДЕЛИ" загрузка из сети
@@ -95,8 +110,34 @@ object HomeRepository {
             .apply { Thread.sleep(100) }
     }
 
-}
+    //ВСЕ ПРОДУКТЫ загрузка из сети
+    fun loadAllGoodsFromNetwork(start: Int, size: Int): List<ProductItemData> =
+        network.netAllGoods
+            .drop(start)
+            .take(size)
+            .apply { Thread.sleep(500) }
 
+
+    //ВСЕ ПРОДУКТЫ кеширование
+    fun insertAllGoodsToDb(goods: List<ProductItemData>) {
+        goods.forEach {
+            insertGoodsToDb(it)
+        }
+            .apply { Thread.sleep(100) }
+        //local.locAllGoods.addAll(goods).apply { Thread.sleep(100) }
+    }
+
+    fun insertGoodsToDb(goods: ProductItemData) {
+        if (!local.locAllGoods.contains(goods)) {
+            local.locAllGoods.add(goods)
+        }
+    }
+
+    fun toggleLike(item: ProductItemData) {
+        LocalDataHolder.locAllGoods.find { it.id == item.id }?.isLike = !item.isLike
+    }
+
+}
 
 
 class GoodsDataFactory(val strategy: ProductStrategy) :
@@ -108,9 +149,6 @@ class CategoriesDataFactory(val strategy: ProductStrategy) :
     DataSource.Factory<Int, CategoryItemData>() {
     override fun create(): DataSource<Int, CategoryItemData> = CategoriesDataSource(strategy)
 }
-
-
-
 
 
 class GoodsDataSource(private val strategy: ProductStrategy) :
@@ -128,8 +166,8 @@ class GoodsDataSource(private val strategy: ProductStrategy) :
         val result = strategy.getItems(params.startPosition, params.loadSize)
         callback.onResult(result)
     }
-}
 
+}
 
 
 class CategoriesDataSource(private val strategy: ProductStrategy) :
@@ -150,14 +188,26 @@ class CategoriesDataSource(private val strategy: ProductStrategy) :
 }
 
 
-
-
 sealed class ProductStrategy() {
 
     open fun getItems(start: Int, size: Int): List<ProductItemData> = emptyList()
     open fun getCategory(start: Int, size: Int): List<CategoryItemData> = emptyList()
 
     class Offers(
+        private val itemProvider: (Int, Int) -> List<ProductItemData>
+    ) : ProductStrategy() {
+        override fun getItems(start: Int, size: Int): List<ProductItemData> =
+            itemProvider(start, size)
+    }
+
+    class AllGoods(
+        private val itemProvider: (Int, Int) -> List<ProductItemData>
+    ) : ProductStrategy() {
+        override fun getItems(start: Int, size: Int): List<ProductItemData> =
+            itemProvider(start, size)
+    }
+
+    class LikeGoods(
         private val itemProvider: (Int, Int) -> List<ProductItemData>
     ) : ProductStrategy() {
         override fun getItems(start: Int, size: Int): List<ProductItemData> =

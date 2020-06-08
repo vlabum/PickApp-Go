@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_bm_basket_24px"
         android:title="@string/bm_basket"/>
     <item
-        android:id="@+id/nav_favorites"
+        android:id="@+id/nav_like"
         android:icon="@drawable/ic_bm_favourite_24px"
         android:title="@string/bm_favorites"/>
     <item

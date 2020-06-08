@@ -6,11 +6,11 @@ import ru.vlabum.pickappngo.data.models.CategoryItemData
 
 object EntityGenerator {
 
-    fun generateCustomerChoiceItems(count: Int): List<ProductItemData> = productItems
-//        Array(count) { productItems[it % 6] }
-//            .toList()
-//            .mapIndexed { index, article ->
-//                article.copy(
+    fun generateCustomerChoiceItems(count: Int): List<ProductItemData> =
+        Array(count) { productItems[it] }
+            .toList()
+//            .mapIndexed { index, goods ->
+//                goods.copy(
 //                    id = "$index"
 //                )
 //            }
@@ -47,7 +47,7 @@ private val categoryItemData = Array(size = 4) {
     }
 }.toList()
 
-private val productItems = Array(10) {
+private val productItems = Array(40) {
     when (it) {
         1 -> ProductItemData(
             id = "1",

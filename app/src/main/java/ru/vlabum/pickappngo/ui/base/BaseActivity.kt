@@ -1,30 +1,22 @@
 package ru.vlabum.pickappngo.ui.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
-
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.NavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions.circleCropTransform
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.core.view.isVisible
-import androidx.core.view.marginRight
-
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
-
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.circleCropTransform
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.vlabum.pickappngo.R
 import ru.vlabum.pickappngo.extensions.dpToIntPx
 import ru.vlabum.pickappngo.viewmodels.base.BaseViewModel
@@ -46,10 +38,15 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         super.onCreate(savedInstanceState)
         setContentView(layout)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         viewModel.observeState(this) { subscribeOnState(it) }
         viewModel.observeNavigation(this) { subscribeOnNavigation(it) }
         navController = findNavController(R.id.nav_host_fragment)
+
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
@@ -85,7 +82,6 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
     }
 
 }
-
 
 data class MenuItemHolder(
     val title: String,
@@ -157,7 +153,7 @@ class ToolbarBuilder() {
             if (this@ToolbarBuilder.subtitle != null)
                 subtitle = this@ToolbarBuilder.subtitle
 
-            setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+//            setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
 
             if (this@ToolbarBuilder.logo != null) {
                 val logoPlaceholder = getDrawable(

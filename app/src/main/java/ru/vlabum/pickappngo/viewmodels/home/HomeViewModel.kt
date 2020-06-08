@@ -53,6 +53,7 @@ class HomeViewModel(handle: SavedStateHandle) :
         )
     }
 
+
     val listCategories = Transformations.switchMap(state) {
         buildPagedListCategory(
             repository.categories(),
@@ -82,6 +83,7 @@ class HomeViewModel(handle: SavedStateHandle) :
         listGoodsOfWeek.observe(owner, Observer { onChange(it) })
     }
 
+
     open fun observerCategoriesList(
         owner: LifecycleOwner,
         onChange: (list: PagedList<CategoryItemData>) -> Unit
@@ -102,6 +104,15 @@ class HomeViewModel(handle: SavedStateHandle) :
 
         //if all articles
         if (dataFactory.strategy is ProductStrategy.Offers) {
+            builder.setBoundaryCallback(
+                GoodsBoundaryCallback(
+                    zeroLoadingHandle,
+                    itemAtEndHandle
+                )
+            )
+        }
+
+        if (dataFactory.strategy is ProductStrategy.AllGoods) {
             builder.setBoundaryCallback(
                 GoodsBoundaryCallback(
                     zeroLoadingHandle,
@@ -236,6 +247,7 @@ class HomeViewModel(handle: SavedStateHandle) :
         }
     }
 
+
     //КАТЕГОРИИ
     private fun itemAtEndHandleCategories(lastLoad: CategoryItemData) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -265,6 +277,15 @@ class HomeViewModel(handle: SavedStateHandle) :
                 listCategories.value?.dataSource?.invalidate()
             }
         }
+    }
+
+    fun handleSearchMode(isSearch: Boolean) {
+        updateState { it.copy(isSearch = isSearch) }
+    }
+
+    fun handleToggleLike(item: ProductItemData) {
+        repository.toggleLike(item)
+        updateState { it.copy() }
     }
 
 }

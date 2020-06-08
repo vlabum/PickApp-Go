@@ -1,24 +1,21 @@
-package ru.vlabum.pickappngo.viewmodels.catalog
+package ru.vlabum.pickappngo.viewmodels.like
 
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.vlabum.pickappngo.data.CategoryItemData
 import ru.vlabum.pickappngo.data.models.ProductItemData
-import ru.vlabum.pickappngo.data.repositories.CatalogRepository
 import ru.vlabum.pickappngo.data.repositories.GoodsDataFactory
 import ru.vlabum.pickappngo.data.repositories.HomeRepository
 import ru.vlabum.pickappngo.data.repositories.ProductStrategy
 import ru.vlabum.pickappngo.viewmodels.base.BaseViewModel
 import ru.vlabum.pickappngo.viewmodels.base.IViewModelState
 import ru.vlabum.pickappngo.viewmodels.common.GoodsBoundaryCallback
-import ru.vlabum.pickappngo.viewmodels.splash.ISplashViewModel
 import java.util.concurrent.Executors
 
-class CatalogViewModel(handle: SavedStateHandle) :
-    BaseViewModel<CatalogState>(handle, CatalogState()) {
+class LikeViewModel(handle: SavedStateHandle) :
+    BaseViewModel<LikeState>(handle, LikeState()) {
 
     val repository = HomeRepository
 
@@ -31,22 +28,22 @@ class CatalogViewModel(handle: SavedStateHandle) :
             .build()
     }
 
-    val listAllGoods = Transformations.switchMap(state) {
+    val listLikeGoods = Transformations.switchMap(state) {
         buildPagedList(
-            repository.allGoods(),
+            repository.likeGoods(),
             ::zeroLoadingHandleAllGoods,
             ::itemAtEndHandleAllGoods
         )
     }
 
-    open fun observerAllGoods(
+    open fun observerLikeGoods(
         owner: LifecycleOwner,
         onChange: (list: PagedList<ProductItemData>) -> Unit
     ) {
-        listAllGoods.observe(owner, Observer { onChange(it) })
+        listLikeGoods.observe(owner, Observer { onChange(it) })
     }
 
-
+    //TODO вынести в базовый класс
     fun buildPagedList(
         dataFactory: GoodsDataFactory,
         zeroLoadingHandle: () -> Unit,
@@ -58,7 +55,7 @@ class CatalogViewModel(handle: SavedStateHandle) :
             listConfig
         )
 
-        if (dataFactory.strategy is ProductStrategy.AllGoods) {
+        if (dataFactory.strategy is ProductStrategy.LikeGoods) {
             builder.setBoundaryCallback(
                 GoodsBoundaryCallback(
                     zeroLoadingHandle,
@@ -73,7 +70,7 @@ class CatalogViewModel(handle: SavedStateHandle) :
     }
 
 
-    //ВСЕ ТОВАРЫ вызывается каждый раз, конда мы доскроливаем до конца нашего DataSource
+    //ЛЮБИМЫЕ ТОВАРЫ вызывается каждый раз, конда мы доскроливаем до конца нашего DataSource
     private fun itemAtEndHandleAllGoods(lastLoad: ProductItemData) {
         viewModelScope.launch(Dispatchers.IO) {
             val items = repository.loadAllGoodsFromNetwork(
@@ -83,12 +80,12 @@ class CatalogViewModel(handle: SavedStateHandle) :
             if (items.isNotEmpty()) {
                 repository.insertAllGoodsToDb(items)
                 //invalidate data in data source -> create new LiveData<PagedList>
-                listAllGoods.value?.dataSource?.invalidate()
+                listLikeGoods.value?.dataSource?.invalidate()
             }
         }
     }
 
-    //ВСЕ ТОВАРЫ
+    //ЛЮБИМЫЕ ТОВАРЫ
     private fun zeroLoadingHandleAllGoods() {
         viewModelScope.launch(Dispatchers.IO) {
             val items =
@@ -99,7 +96,7 @@ class CatalogViewModel(handle: SavedStateHandle) :
             if (items.isNotEmpty()) {
                 repository.insertAllGoodsToDb(items)
                 //invalidate data in data source -> create new LiveData<PagedList>
-                listAllGoods.value?.dataSource?.invalidate()
+                listLikeGoods.value?.dataSource?.invalidate()
             }
         }
     }
@@ -109,15 +106,14 @@ class CatalogViewModel(handle: SavedStateHandle) :
     }
 
     fun handleToggleLike(item: ProductItemData) {
-        repository.insertGoodsToDb(item)
         repository.toggleLike(item)
-        updateState { it.copy(isSearch = false) }
-        listAllGoods.value?.dataSource?.invalidate()
+        updateState { it.copy() }
+        listLikeGoods.value?.dataSource?.invalidate()
     }
 
 }
 
-data class CatalogState(
+data class LikeState(
     val isSearch: Boolean = false,
     val searchQuery: String? = null
 ) : IViewModelState {
@@ -131,6 +127,5 @@ data class CatalogState(
         return super.restore(savedState)
     }
 }
-
 
 

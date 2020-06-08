@@ -4,18 +4,22 @@
 <!--    <color name="colorPrimaryDark">#00574B</color>-->
 <!--    <color name="colorAccent">#D81B60</color>-->
 
-    <color name="colorPrimary">#8BC34A</color>
-    <color name="colorPrimaryDark">#689F38</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorOnPrimary">#2B2A2E</color>
+    <color name="colorPrimaryDark">#2B2A2E</color>
     <color name="colorAccent">#FF9800</color>
 
     <color name="background">#FAFAFA</color>
     <color name="background_card">#FFFFFF</color>
+    <color name="background_gray">#FFFFFF</color>
+
     <color name="accent_orange">#FF8E09</color>
     <color name="accent_orange2">#FF5722</color>
     <color name="text">#2B2A2E</color>
     <color name="text2">#484848</color>
     <color name="magenta">#FF3C6B</color>
     <color name="green">#71CE28</color>
+
 
 
 

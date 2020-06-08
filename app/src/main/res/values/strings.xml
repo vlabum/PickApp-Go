@@ -14,4 +14,5 @@
     <string name="news_of_the_week_text">Новинки недели</string>
     <string name="goods_of_the_week_text">Товары недели</string>
     <string name="category_text">Категории</string>
+    <string name="search_placeholder">Поиск</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.vlabum.pickappngo.ui.catalog
+package ru.vlabum.pickappngo.ui.like
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,14 +12,17 @@ import ru.vlabum.pickappngo.ui.base.BaseFragment
 import ru.vlabum.pickappngo.ui.base.Binding
 import ru.vlabum.pickappngo.ui.base.MenuItemHolder
 import ru.vlabum.pickappngo.ui.base.ToolbarBuilder
+import ru.vlabum.pickappngo.ui.catalog.CatalogGoodsAdapter
 import ru.vlabum.pickappngo.ui.delegates.RenderProp
 import ru.vlabum.pickappngo.viewmodels.base.IViewModelState
 import ru.vlabum.pickappngo.viewmodels.catalog.CatalogState
 import ru.vlabum.pickappngo.viewmodels.catalog.CatalogViewModel
+import ru.vlabum.pickappngo.viewmodels.like.LikeState
+import ru.vlabum.pickappngo.viewmodels.like.LikeViewModel
 
-class CatalogFragment : BaseFragment<CatalogViewModel>() {
+class LikeFragment : BaseFragment<LikeViewModel>() {
 
-    override val viewModel: CatalogViewModel by viewModels()
+    override val viewModel: LikeViewModel by viewModels()
     override val layout: Int = R.layout.fragment_catalog
     override val binding: CatalogBinding by lazy { CatalogBinding() }
 
@@ -55,7 +58,7 @@ class CatalogFragment : BaseFragment<CatalogViewModel>() {
             adapter = goodsAdapter
 //            addItemDecoration(GridItemDecoration(24, 2))
         }
-        viewModel.observerAllGoods(viewLifecycleOwner) {
+        viewModel.observerLikeGoods(viewLifecycleOwner) {
             goodsAdapter.submitList(it)
             //window resize options
         }
@@ -113,7 +116,7 @@ class CatalogFragment : BaseFragment<CatalogViewModel>() {
         var searchQuery: String? = null
 
         override fun bind(data: IViewModelState) {
-            data as CatalogState
+            data as LikeState
             isSearch = data.isSearch
             searchQuery = data.searchQuery
         }

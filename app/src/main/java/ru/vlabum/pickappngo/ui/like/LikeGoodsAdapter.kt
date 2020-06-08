@@ -1,4 +1,4 @@
-package ru.vlabum.pickappngo.ui.catalog
+package ru.vlabum.pickappngo.ui.like
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import ru.vlabum.pickappngo.R
 import ru.vlabum.pickappngo.data.models.ProductItemData
 import ru.vlabum.pickappngo.ui.custom.view.ProductItemView
 
-class CatalogGoodsAdapter(
+class LikeGoodsAdapter(
     private val listener: (ProductItemData) -> Unit,
     private val listenerBasket: (ProductItemData) -> Unit,
     private val listenerLike: (ProductItemData) -> Unit

@@ -60,4 +60,21 @@ abstract class BaseFragment<T : BaseViewModel<out IViewModelState>> : Fragment()
         viewModel.observeNavigation(viewLifecycleOwner) { mainActivity.viewModel.navigate(it) }
         setupViews()
     }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        if (mainActivity.toolbarBuilder.items.isNotEmpty()) {
+            for ((index, menuHolder) in mainActivity.toolbarBuilder.items.withIndex()) {
+                val item = menu.add(0, menuHolder.menuId, index, menuHolder.title)
+                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW)
+                    .setIcon(menuHolder.icon)
+                    .setOnMenuItemClickListener {
+                        menuHolder.clickListener?.invoke(it)?.let { true } ?: false
+                    }
+
+                if (menuHolder.actionViewLayout != null) item.setActionView(menuHolder.actionViewLayout)
+            }
+        } else menu.clear()
+        super.onPrepareOptionsMenu(menu)
+    }
+
 }

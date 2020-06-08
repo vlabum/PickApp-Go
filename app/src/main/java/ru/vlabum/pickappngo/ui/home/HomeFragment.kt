@@ -27,19 +27,19 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     val customerChoiceAdapter = HomeGoodsAdapter(
         { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/ },
         { item -> /*TODO add basket*/ },
-        { item -> /*TODO insert into adore product*/ }
+        { item -> viewModel.handleToggleLike(item) }
     )
 
     val newsOfTheWeekAdapter = HomeGoodsAdapter(
         { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/ },
         { item -> /*TODO add basket*/ },
-        { item -> /*TODO insert into adore product*/ }
+        { item -> viewModel.handleToggleLike(item) }
     )
 
     val goodsOfTheWeekAdapter = HomeGoodsAdapter(
         { item -> /*val action = //viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))*/ },
         { item -> /*TODO add basket*/ },
-        { item -> /*TODO insert into adore product*/ }
+        { item -> viewModel.handleToggleLike(item) }
     )
 
     val categoriesAdapter = HomeCategoryAdapter(

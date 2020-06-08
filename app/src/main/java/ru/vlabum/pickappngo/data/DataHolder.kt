@@ -14,6 +14,9 @@ object LocalDataHolder {
 
     val locCategories: MutableList<CategoryItemData> = mutableListOf()
 
+    val locAllGoods: MutableList<ProductItemData> = mutableListOf()
+    val locAllGoodsSet: MutableSet<MutableList<ProductItemData>> = mutableSetOf()
+
     fun getSplashData(): MutableLiveData<SplashItemData> {
         return MutableLiveData(SplashItemData())
     }
@@ -49,10 +52,12 @@ data class CategoryItemData(
 
 object NetworkDataHolder {
 
-    val netCustomerChoice: List<ProductItemData> = generateCustomerChoiceItems(30)
-    val netNewsOfweek: List<ProductItemData> = generateCustomerChoiceItems(20)
-    val netGoodsOfweek: List<ProductItemData> = generateCustomerChoiceItems(30)
+    val netCustomerChoice: List<ProductItemData> = generateCustomerChoiceItems(10)
+    val netNewsOfweek: List<ProductItemData> = generateCustomerChoiceItems(10)
+    val netGoodsOfweek: List<ProductItemData> = generateCustomerChoiceItems(10)
 
     val netCategories: List<CategoryItemData> = getCategories()
+
+    val netAllGoods: List<ProductItemData> = generateCustomerChoiceItems(40)
 
 }
